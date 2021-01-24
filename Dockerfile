@@ -1,69 +1,52 @@
-# Usaremos o container do Alpine que é considerávelmente
-# menor do Debian ou Ubuntu
-FROM alpine:3.7
+FROM php:7.2-fpm
 
-# Instalando os pacotes necessários
-# Note que instalaremos o Nginx juntamente com o PHP.
-# Na filosofia do Docker essa não é uma prática
-# muito recomendável em todos os caso, pois o container
-# em geral, deve rodar apenas um processo
-# mas como o server interno do PHP não é recomendável
-# para produção usaremos o Nginx, e para não ter
-# que criar outro container apenas para o servidor
-# web, instalaremos os dois no mesmo container
-# e o supervisor cuidará dos processos
-RUN apk --update add --no-cache \
-        nginx \
-        curl \
-        supervisor \
-        php7 \
-        php7-ctype \
-        php7-curl \
-        php7-dom \
-        php7-fpm \
-        php7-json \
-        php7-mbstring \
-        php7-mcrypt \
-        php7-opcache \
-        php7-openssl \
-        php7-pdo \
-        php7-pdo_mysql \
-        php7-pdo_pgsql \
-        php7-pdo_sqlite \
-        php7-phar \
-        php7-session \
-        php7-tokenizer \
-        php7-xml
-# Limpando o cache das instalações
-# é sempre recomendável remover do
-# container tudo aquilo que não for mais
-# necessário após tudo configurado
-# assim o container fica menor
-RUN rm -Rf /var/cache/apk/*
+# Set working directory
+WORKDIR /var/www
 
-# Instalando composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+  build-essential \
+  libpng-dev \
+  libjpeg62-turbo-dev \
+  libfreetype6-dev \
+  locales \
+  zip \
+  jpegoptim optipng pngquant gifsicle \
+  vim \
+  unzip \
+  git \
+  curl
 
-# Configurando o Nginx
-# Aqui copiamos nosso arquivo de configuração para dentro do container
-# Note que ainda não criamos esse arquivo, criaremos mais à frente
-COPY nginx.conf /etc/nginx/nginx.conf
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Arquivo de configuração do supervisor
-# Idem ao Nginx, será criado mais adiante
-COPY supervisord.conf /etc/supervisord.conf
+# Install extensions
+RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
+RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
+RUN docker-php-ext-install gd
 
-# Criando o diretório onde ficará nossa aplicação
-RUN mkdir -p /app
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Definindo o diretório app como nosso diretório de trabalho
-WORKDIR /app
+# Add user for laravel application
+RUN groupadd -g 1000 www
+RUN useradd -u 1000 -ms /bin/bash -g www www
 
-# Dando permissões para a pasta do projeto
-RUN chmod -R 755 /app
+# Copy existing application directory contents
+COPY . /var/www
 
-# Expondo as portas
-EXPOSE 80 443
+# Copy existing application directory permissions
+#COPY --chown=www:www . /var/www
 
-# Finalmente... Iniciando tudo... Ufa...
-CMD ["supervisord", "-c", "/etc/supervisord.conf"]
+#RUN mkdir -p vendor
+RUN chown www /var/www
+
+# Change current user to www
+USER www
+
+#Install Dependencies
+RUN composer install
+
+# Expose port 9000 and start php-fpm server
+EXPOSE 9000
+CMD ["php-fpm"]
