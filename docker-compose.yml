@@ -1,75 +1,64 @@
-version: "3.7"
-
+version: '3'
 services:
+
+  #PHP Service
   app:
     build:
-      context: docker/app
+      context: .
       dockerfile: Dockerfile
-    image: laravelapp/app:latest
-    command: ["--env=dev"]
-    healthcheck:
-      test: ["CMD", "curl", "-f", "${APP_URL}"]
-      interval: 30s
-      timeout: 2s
-      retries: 3
-      start_period: 30s
-    networks:
-      - appnet
-    env_file:
-      - .env
-    volumes:
-      - .:/var/www/html
-    ports:
-      - 80:80
-      - 443:443
-    working_dir: /var/www/html/
-    depends_on:
-      - mysql
-      - redis
-  node:
-    build:
-      context: docker/node
-      dockerfile: Dockerfile
-    image: laravelapp/node:latest
-    command: ["--env=dev"]
-    networks:
-      - appnet
+    image: digitalocean.com/php
+    container_name: app
+    restart: unless-stopped
+    tty: true
     environment:
-      - NODE_ENV=development
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
     volumes:
-      - .:/home/node/app
-    working_dir: /home/node/app
-  mysql:
-    image: mysql:5.7
-    env_file:
-      - .env
-    environment:
-      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
-      MYSQL_DATABASE: "${DB_DATABASE}"
-    ports:
-      - ${DB_PORT}:3306
+      - ./:/var/www
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
-      - appnet
-    volumes:
-      - app-data:/var/lib/mysql
-  redis:
-    image: redis:5.0.7
-    command: redis-server --appendonly yes
-    env_file:
-      - .env
-    ports:
-      - ${REDIS_PORT}:${REDIS_PORT}
-    networks:
-      - appnet
-    volumes:
-      - redis-data:/data
+      - app-network
 
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - app-network
+
+  #MySQL Service
+  db:
+    image: mysql:5.7.22
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: secret
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - dbdata:/var/lib/mysql/
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - app-network
+
+#Docker Networks
 networks:
-  appnet:
+  app-network:
     driver: bridge
-
+#Volumes
 volumes:
-  app-data:
-    driver: local
-  redis-data:
+  dbdata:
     driver: local
