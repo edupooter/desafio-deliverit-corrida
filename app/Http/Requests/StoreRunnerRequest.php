@@ -22,7 +22,7 @@ class StoreRunnerRequest extends FormRequest
                 'required',
             ],
             'cpf' => [
-                // 'string',
+                'string',
                 'required',
                 'cpf',
             ],
