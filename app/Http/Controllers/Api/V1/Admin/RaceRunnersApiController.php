@@ -50,24 +50,14 @@ class RaceRunnersApiController extends Controller
      */
     private function checkConflicts(int $runnerId, int $raceId): bool
     {
-        $listaProvas = DB::select('SELECT
-            racings.id FROM (
-                SELECT
-                    racings.id AS id,
-                    race_date
-                FROM
-                    race_runners
-                LEFT JOIN racings ON
-                    race_runners.race_id = racings.id
-                WHERE
-                    runner_id = ?
-                ) corridas
-            LEFT JOIN racings ON
-                racings.id <> corridas.id
-            WHERE
-                corridas.race_date = racings.race_date
-                AND corridas.id = ?',
-            [$runnerId, $raceId]
+        $listaProvas = DB::select(
+            'SELECT racings.id
+            FROM race_runners
+            INNER JOIN racings ON racings.id = race_runners.race_id
+            WHERE (race_runners.runner_id = ? AND race_runners.race_id = ?)
+            OR (race_runners.runner_id = ? AND racings.race_date IN
+            (SELECT racings.race_date FROM racings WHERE racings.id = ?))',
+            [$runnerId, $raceId, $runnerId, $raceId]
         );
 
         if ($listaProvas) {
