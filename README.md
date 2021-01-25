@@ -51,4 +51,45 @@ Algumas tabelas precisam ser criadas no banco de dados:
 `docker-compose exec app php artisan migrate`
 
 ## Execução
-Uma API ficará disponível em `http://localhost`
+Uma API ficará disponível em `http://localhost/api/v1`
+
+Adicionar o seguinte header ao criar as requisições:
+`Accept: application/json`
+
+Um arquivo de collection da API no formato do Postman está disponível na raiz do projeto:
+`/DeliverIT.postman_collection.json`
+
+### Rotas disponíveis:
+
+##### Inclusão de corredores para uma corrida
+POST http://localhost/api/v1/runners
+* Body:
+name
+cpf
+birthday
+
+##### Inclusão de provas
+POST http://localhost/api/v1/racings
+* Body:
+type
+race_date
+
+##### Inclusão de corredores em provas
+POST http://localhost/api/v1/race-runners
+* Body:
+runner_id
+race_id
+
+##### Inclusão de resultados dos corredores
+POST http://localhost/api/v1/runners-results
+* Body:
+runner_id
+race_id
+start_time
+finish_time
+
+##### Listagem de classificação das provas por idade
+GET http://localhost/api/v1/general-classification
+
+##### Listagem de classificação das provas gerais
+GET http://localhost/api/v1/age-classification

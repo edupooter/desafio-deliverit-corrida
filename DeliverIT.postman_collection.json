@@ -1,0 +1,240 @@
+{
+	"info": {
+		"_postman_id": "17ac0140-a791-42cb-979c-c39a6375606e",
+		"name": "Laravel localhost DeliverIT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Incluir corredor",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Denise",
+							"type": "text"
+						},
+						{
+							"key": "cpf",
+							"value": "01234567890",
+							"type": "text"
+						},
+						{
+							"key": "birthday",
+							"value": "01/01/1999",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/runners",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"runners"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Incluir prova",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "type",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "race_date",
+							"value": "30/01/2021",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/racings",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"racings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Incluir corredor em prova",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "runner_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "race_id",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/race-runners",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"race-runners"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Incluir resultado de corredor",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "runner_id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "race_id",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "start_time",
+							"value": "11:00:00",
+							"type": "text"
+						},
+						{
+							"key": "finish_time",
+							"value": "12:15:00",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/runners-results",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"runners-results"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar classificação por idade",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/age-classification",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"age-classification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar classificação geral",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/general-classification",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"general-classification"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
