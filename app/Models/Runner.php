@@ -33,11 +33,11 @@ class Runner extends Model
 
     public function getBirthdayAttribute($value)
     {
-        return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;
+        return $value ? Carbon::parse($value)->format('d/m/Y') : null;
     }
 
     public function setBirthdayAttribute($value)
     {
-        $this->attributes['birthday'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
+        $this->attributes['birthday'] = $value ? Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d') : null;
     }
 }

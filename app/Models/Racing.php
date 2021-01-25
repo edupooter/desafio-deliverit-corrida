@@ -40,11 +40,11 @@ class Racing extends Model
 
     public function getRaceDateAttribute($value)
     {
-        return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;
+        return $value ? Carbon::parse($value)->format('d/m/Y') : null;
     }
 
     public function setRaceDateAttribute($value)
     {
-        $this->attributes['race_date'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
+        $this->attributes['race_date'] = $value ? Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d') : null;
     }
 }

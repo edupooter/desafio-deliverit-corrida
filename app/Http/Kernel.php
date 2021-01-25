@@ -36,11 +36,12 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\AuthGates::class,
-            \App\Http\Middleware\SetLocale::class,
+            // \App\Http\Middleware\SetLocale::class,
         ],
         'api' => [
             'throttle:60,1',
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            // \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\AuthGates::class,
         ],
     ];
 
