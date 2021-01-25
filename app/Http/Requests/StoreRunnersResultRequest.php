@@ -38,6 +38,7 @@ class StoreRunnersResultRequest extends FormRequest
             'finish_time' => [
                 'required',
                 'date_format:' . config('panel.time_format'),
+                'after:start_date',
             ],
         ];
     }
