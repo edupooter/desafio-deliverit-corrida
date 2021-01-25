@@ -24,7 +24,7 @@ class StoreRaceRunnerRequest extends FormRequest
                 'exists:runners,id',
                 Rule::unique('race_runners')
                     ->where('runner_id', $this->request->get('runner_id'))
-                    ->where('race_id', $this->request->get('race_id'))
+                    ->where('race_id', $this->request->get('race_id')),
             ],
             'race_id' => [
                 'required',

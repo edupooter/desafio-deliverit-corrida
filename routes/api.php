@@ -12,4 +12,8 @@ Route::group([
     Route::apiResource('race-runners', 'RaceRunnersApiController', ['except' => ['show', 'update', 'destroy']]);
 
     Route::apiResource('runners-results', 'RunnersResultsApiController', ['except' => ['show', 'update', 'destroy']]);
+
+    Route::get('age-classification', 'AgeClassificationApiController@index');
+
+    Route::get('general-classification', 'GeneralClassificationApiController@index');
 });

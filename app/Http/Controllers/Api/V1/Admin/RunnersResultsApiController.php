@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRunnersResultRequest;
 use App\Http\Resources\Admin\RunnersResultResource;
 use App\Models\RunnersResult;
-use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
