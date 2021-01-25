@@ -24,7 +24,7 @@ class StoreRacingRequest extends FormRequest
             ],
             'race_date' => [
                 'required',
-                'date_format:' . 'd/m/Y',
+                'date_format:' . config('panel.date_format'),
             ],
         ];
     }

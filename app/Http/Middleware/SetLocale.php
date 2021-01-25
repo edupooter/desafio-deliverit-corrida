@@ -13,8 +13,8 @@ class SetLocale
             $language = request('change_language');
         } elseif (session('language')) {
             $language = session('language');
-        } elseif ('pt-br') {
-            $language = 'pt-br';
+        } elseif (config('panel.primary_language')) {
+            $language = config('panel.primary_language');
         }
 
         if (isset($language)) {

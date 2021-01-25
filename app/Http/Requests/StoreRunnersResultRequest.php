@@ -33,11 +33,11 @@ class StoreRunnersResultRequest extends FormRequest
             ],
             'start_time' => [
                 'required',
-                'date_format:' . 'H:i:s',
+                'date_format:' . config('panel.time_format'),
             ],
             'finish_time' => [
                 'required',
-                'date_format:' . 'H:i:s',
+                'date_format:' . config('panel.time_format'),
             ],
         ];
     }

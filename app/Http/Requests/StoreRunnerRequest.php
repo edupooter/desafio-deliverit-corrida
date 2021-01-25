@@ -28,7 +28,7 @@ class StoreRunnerRequest extends FormRequest
             ],
             'birthday' => [
                 'required',
-                'date_format:' . 'd/m/Y',
+                'date_format:' . config('panel.date_format'),
                 'before:-18 years',
             ],
         ];
