@@ -14,7 +14,6 @@ class Runner extends Model
         'birthday',
         'created_at',
         'updated_at',
-        'deleted_at',
     ];
 
     protected $fillable = [
@@ -23,7 +22,6 @@ class Runner extends Model
         'birthday',
         'created_at',
         'updated_at',
-        'deleted_at',
     ];
 
     protected function serializeDate(DateTimeInterface $date)

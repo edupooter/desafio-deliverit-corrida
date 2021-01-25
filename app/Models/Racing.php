@@ -14,7 +14,6 @@ class Racing extends Model
         'race_date',
         'created_at',
         'updated_at',
-        'deleted_at',
     ];
 
     protected $fillable = [
@@ -22,7 +21,6 @@ class Racing extends Model
         'race_date',
         'created_at',
         'updated_at',
-        'deleted_at',
     ];
 
     const TYPE_SELECT = [

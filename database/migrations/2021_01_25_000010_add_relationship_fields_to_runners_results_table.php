@@ -13,6 +13,7 @@ class AddRelationshipFieldsToRunnersResultsTable extends Migration
             $table->foreign('runner_id', 'runner_fk_3056692')->references('id')->on('runners');
             $table->unsignedBigInteger('race_id');
             $table->foreign('race_id', 'race_fk_3056693')->references('id')->on('racings');
+            $table->unique(['runner_id', 'race_id']);
         });
     }
 }

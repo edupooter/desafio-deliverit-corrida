@@ -9,12 +9,6 @@ class RunnersResult extends Model
 {
     public $table = 'runners_results';
 
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
-
     protected $fillable = [
         'runner_id',
         'race_id',
@@ -22,7 +16,6 @@ class RunnersResult extends Model
         'finish_time',
         'created_at',
         'updated_at',
-        'deleted_at',
     ];
 
     protected function serializeDate(DateTimeInterface $date)
