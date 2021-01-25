@@ -1,7 +1,7 @@
 # desafio-deliverit-corrida
 Desenvolvido para avaliação da DeliverIT
 
-Baseado em Laravel 7 (PHP 7.2.34)
+Baseado em Laravel 7 (PHP 7.2.5)
 
 ## Ambiente local
 
@@ -48,7 +48,7 @@ exit
 ```
 
 Algumas tabelas precisam ser criadas no banco de dados:
-`docker-compose exec app php artisan migrate --seed`
+`docker-compose exec app php artisan migrate`
 
 ## Execução
 Uma API ficará disponível em `http://localhost`
