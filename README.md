@@ -64,29 +64,29 @@ Um arquivo de collection da API no formato do Postman está disponível na raiz 
 ##### Inclusão de corredores para uma corrida
 POST http://localhost/api/v1/runners
 * Body:
-name
-cpf
-birthday
+    - name
+    - cpf
+    - birthday
 
 ##### Inclusão de provas
 POST http://localhost/api/v1/racings
 * Body:
-type
-race_date
+    - type
+    - race_date
 
 ##### Inclusão de corredores em provas
 POST http://localhost/api/v1/race-runners
 * Body:
-runner_id
-race_id
+    - runner_id
+    - race_id
 
 ##### Inclusão de resultados dos corredores
 POST http://localhost/api/v1/runners-results
 * Body:
-runner_id
-race_id
-start_time
-finish_time
+    - runner_id
+    - race_id
+    - start_time
+    - finish_time
 
 ##### Listagem de classificação das provas por idade
 GET http://localhost/api/v1/general-classification
