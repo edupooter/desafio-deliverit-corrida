@@ -24,11 +24,11 @@ class Racing extends Model
     ];
 
     const TYPE_SELECT = [
-        '3'  => '3km',
-        '5'  => '5km',
-        '10' => '10km',
-        '21' => '21km',
-        '42' => '42km',
+        '3',
+        '5',
+        '10',
+        '21',
+        '42',
     ];
 
     protected function serializeDate(DateTimeInterface $date)

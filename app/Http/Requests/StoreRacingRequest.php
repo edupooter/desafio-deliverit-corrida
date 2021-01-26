@@ -20,7 +20,7 @@ class StoreRacingRequest extends FormRequest
         return [
             'type' => [
                 'required',
-                Rule::in([3, 5, 10, 21, 42]),
+                Rule::in(['3', '5', '10', '21', '42']),
             ],
             'race_date' => [
                 'required',

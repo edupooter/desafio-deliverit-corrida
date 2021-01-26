@@ -13,7 +13,7 @@ Route::group([
 
     Route::apiResource('runners-results', 'RunnersResultsApiController', ['except' => ['show', 'update', 'destroy']]);
 
-    Route::get('age-classification', 'AgeClassificationApiController@index');
+    Route::apiResource('age-classification', 'AgeClassificationApiController', ['only' => ['index']]);
 
-    Route::get('general-classification', 'GeneralClassificationApiController@index');
+    Route::apiResource('general-classification', 'GeneralClassificationApiController', ['only' => ['index']]);
 });
