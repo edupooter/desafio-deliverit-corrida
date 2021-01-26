@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Models\RunnersResult;
-use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
@@ -23,8 +22,8 @@ class StoreRunnersResultRequest extends FormRequest
                 'integer',
                 'exists:runners,id',
                 Rule::unique('runners_results')
-                    ->where('runner_id', $this->request->get('runner_id'))
-                    ->where('race_id', $this->request->get('race_id'))
+                    ->where('runner_id', $this->runner_id)
+                    ->where('race_id', $this->race_id)
             ],
             'race_id' => [
                 'required',

@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Models\Racing;
-use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
